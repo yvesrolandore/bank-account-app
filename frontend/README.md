@@ -1,73 +1,133 @@
-# React + TypeScript + Vite
+🏦 Bank Account Front-End – React + Vite
+✨ Aperçu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce projet front-end consomme l’API du compte bancaire pour permettre aux utilisateurs de :
 
-Currently, two official plugins are available:
+Consulter le solde du compte
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visualiser l’historique des transactions
 
-## React Compiler
+Effectuer des dépôts et des retraits
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Le front-end est développé en React + TypeScript avec Vite pour un build rapide et efficace.
 
-## Expanding the ESLint configuration
+🎯 Objectifs
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Intégrer l’API REST fournie par le back-end Spring Boot
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Fournir une interface utilisateur simple et réactive
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Gérer les erreurs et succès provenant du back-end
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Trier et afficher les transactions par date décroissante
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🛠 Choix technologiques
+Technologie	Usage
+React	Composants réutilisables, gestion efficace de l’état
+TypeScript	Typage statique et sécurité à la compilation
+Axios	Communication avec l’API REST
+Vite	Build rapide et serveur de développement léger
+🏗 Architecture & Logique
+Composants principaux
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+BankAccount.tsx
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Formulaire de saisie pour dépôt/retrait
+
+Affichage du solde du compte
+
+Tableau des transactions (triées par date décroissante)
+
+Gestion des messages d’erreur ou de succès via useState
+
+Intégration API
+
+Toutes les interactions avec le back-end se font via Axios :
+
+fetchData() : récupère les transactions et le solde
+
+addTransaction(type, amount) : envoie un dépôt ou retrait et met à jour l’état
+
+Gestion des erreurs
+
+Les exceptions métier du back-end (montant invalide, fonds insuffisants, dépassement de limite) sont capturées et affichées dans l’UI
+
+Messages clairs pour l’utilisateur final
+
+⚡ Fonctionnalités
+
+Dépôt et retrait avec validation côté serveur
+
+Affichage du solde en temps réel
+
+Historique des transactions trié par date décroissante
+
+Gestion d’erreurs et feedback utilisateur
+
+Intégration complète avec le back-end Event Sourcing
+
+🔄 Flux des données
+Utilisateur <-> Composant BankAccount <-> Axios <-> Back-End Spring Boot <-> Repository
+
+
+Le front récupère les transactions et le solde via les endpoints /balance et /transactions
+
+Les opérations de dépôt/retrait sont envoyées via /deposit et /withdraw
+
+Le front se met à jour automatiquement après chaque opération
+
+⚙ Installation & Exécution
+Prérequis
+
+Node.js 18+
+
+npm ou yarn
+
+Back-end en cours d’exécution sur http://localhost:8080/api
+
+Installation
+cd frontend
+npm install
+
+Démarrage
+npm run dev
+
+
+L’interface sera disponible sur : http://localhost:5174
+
+🧪 Tests
+
+Tests manuels via navigateur pour vérifier :
+
+Dépôt et retrait fonctionnels
+
+Solde correct après chaque transaction
+
+Affichage de l’historique
+
+Gestion des erreurs envoyées par le back-end
+
+📦 Structure du projet
+frontend/
+├─ src/
+│  ├─ components/BankAccount.tsx
+│  ├─ assets/
+│  ├─ App.tsx
+│  ├─ main.tsx
+│  ├─ index.css
+│  └─ types.ts
+├─ public/
+│  └─ vite.svg
+├─ package.json
+├─ tsconfig.json
+└─ vite.config.ts
+
+✅ Conclusion
+
+Ce front-end offre une interface simple mais fonctionnelle pour gérer le compte bancaire et tester toutes les fonctionnalités implémentées côté back-end.
+
+Intégration API complète avec React + TypeScript
+
+Transactions et solde en temps réel
+
+Gestion claire des erreurs et feedback utilisateur
